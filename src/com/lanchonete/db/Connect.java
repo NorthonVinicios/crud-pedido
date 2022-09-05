@@ -5,8 +5,12 @@
  */
 package com.lanchonete.db;
 
+import com.lanchonete.classes.Cliente;
+import com.lanchonete.classes.Pedido;
 import java.sql.*;
-
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Connect {
 
@@ -27,6 +31,26 @@ public class Connect {
             e.printStackTrace();
         }
 
+    }
+
+    public int ultimoPedido() {
+        try {
+            String sql = "SELECT MAX(ID) FROM pedido";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet result = stm.executeQuery();
+            List<Cliente> list = new ArrayList<>();
+            int id = result.getInt("id_cliente");
+            connection.close();
+            return id;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public String getHoras() {
+        String hora = (LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
+        String data = (LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonth() + "/" + LocalDateTime.now().getYear());
+        return data + " | " + hora;
     }
 
 }

@@ -6,16 +6,19 @@
 package com.lanchonete.classes;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -29,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Produto.findByCor", query = "SELECT p FROM Produto p WHERE p.cor = :cor")
     , @NamedQuery(name = "Produto.findByValor", query = "SELECT p FROM Produto p WHERE p.valor = :valor")})
 public class Produto implements Serializable {
+
+    @ManyToMany(mappedBy = "produtoList")
+    private List<Pedido> pedidoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -115,6 +121,15 @@ public class Produto implements Serializable {
     @Override
     public String toString() {
         return "com.lanchonete.classes.Produto[ idProduto=" + idProduto + " ]";
+    }
+
+    @XmlTransient
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
+    }
+
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
     }
     
 }

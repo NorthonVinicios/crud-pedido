@@ -5,11 +5,13 @@
  */
 package com.lanchonete.main;
 
-import com.lanchonete.db.Connect;
+import com.lanchonete.view.Frame;
 
 
-public class main {
+
+public class Main {
     public static void main(String[] args) {
-
+        Frame frame = new Frame();
+        frame.setVisible(true);
     }
 }

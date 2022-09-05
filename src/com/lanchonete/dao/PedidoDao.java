@@ -17,7 +17,7 @@ public class PedidoDao {
 
     public PedidoDao() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/pedido";
+            String url = "jdbc:postgresql://localhost:5432/produto";
             String user = "postgres";
             String password = "admin";
             Class.forName("org.postgresql.Driver");
