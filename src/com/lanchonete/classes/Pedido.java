@@ -19,10 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Neax
- */
+
 @Entity
 @Table(name = "pedido")
 @XmlRootElement

@@ -10,10 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Neax
- */
+
 public class ClienteDao {
 
     public Connection connection;

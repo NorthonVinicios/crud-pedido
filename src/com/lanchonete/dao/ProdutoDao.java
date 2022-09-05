@@ -10,10 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Neax
- */
+
 public class ProdutoDao {
 
     public Connection connection;
@@ -27,6 +24,7 @@ public class ProdutoDao {
             this.connection = DriverManager.getConnection(url, user, password);
 
         } catch (Exception e) {
+             e.printStackTrace();
         }
     }
 
@@ -43,6 +41,7 @@ public class ProdutoDao {
                 list.add(produto);
             }
         } catch (Exception e) {
+             e.printStackTrace();
         }
         return list;
     }
@@ -64,6 +63,7 @@ public class ProdutoDao {
                 list.add(produto);
             }
         } catch (Exception e) {
+             e.printStackTrace();
         }
         return list.get(0);
     }

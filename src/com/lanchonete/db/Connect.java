@@ -7,10 +7,7 @@ package com.lanchonete.db;
 
 import java.sql.*;
 
-/**
- *
- * @author Neax
- */
+
 public class Connect {
 
     private String url;
@@ -30,18 +27,6 @@ public class Connect {
             e.printStackTrace();
         }
 
-    }
-
-    public int executaSql(String sql) {
-        try {
-            Statement stm = connection.createStatement();
-            int res = stm.executeUpdate(sql);
-            connection.close();
-            return res;
-            
-        } catch (Exception e) {
-            return 0;
-        }
     }
 
 }

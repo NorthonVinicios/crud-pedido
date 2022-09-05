@@ -7,10 +7,7 @@ package com.lanchonete.main;
 
 import com.lanchonete.db.Connect;
 
-/**
- *
- * @author Neax
- */
+
 public class main {
     public static void main(String[] args) {
 
