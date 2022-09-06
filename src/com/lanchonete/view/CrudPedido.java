@@ -53,6 +53,7 @@ public class CrudPedido extends javax.swing.JDialog {
         carregaPesquisa(daoProduto.list());
         carregaProdutos(new ArrayList());
     }
+    //git reset /nbprojects/
 
     public void carregaPesquisa(List<Produto> lista) {
         modelPesquisa.setData(lista);
