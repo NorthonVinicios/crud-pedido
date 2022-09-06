@@ -10,7 +10,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ClienteDao {
 
     public Connection connection;
@@ -119,6 +118,28 @@ public class ClienteDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean clientExists(int id) {
+        String sql = "SELECT * FROM cliente WHERE id_cliente=?";
+        List<Cliente> list = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                Cliente client = new Cliente();
+                client.setIdCliente(result.getInt("id_cliente"));
+                client.setNome(result.getString("nome"));
+                list.add(client);
+            }
+            if(!list.isEmpty()){
+                return true;
+            }
+        } catch (Exception e) {
+        }
+
+        return false;
     }
 
 }

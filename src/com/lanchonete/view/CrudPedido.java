@@ -5,35 +5,49 @@
  */
 package com.lanchonete.view;
 
+import com.lanchonete.classes.Pedido;
 import com.lanchonete.classes.Produto;
+import com.lanchonete.dao.ClienteDao;
 import com.lanchonete.dao.PedidoDao;
+import com.lanchonete.dao.ProdutoDao;
 import com.lanchonete.db.Connect;
 import com.lanchonete.model.ModelPesquisa;
 import com.lanchonete.model.ModelProdutos;
+import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class CrudPedido extends javax.swing.JDialog {
-
+    
     PedidoDao daoPedido = new PedidoDao();
+    ClienteDao daoCliente = new ClienteDao();
+    ProdutoDao daoProduto = new ProdutoDao();
     Connect banco = new Connect();
-    public ModelPesquisa modelPesquisa;
-    public ModelProdutos modelProduto;
-
+    public ModelPesquisa modelPesquisa = new ModelPesquisa();
+    public ModelProdutos modelProduto = new ModelProdutos();
+    private List<Produto> produtos = new ArrayList();
+    
+    private AmbienteTableModel modelProd;
+    
     public CrudPedido(java.awt.Frame parent) {
         super(parent, true);
         initComponents();
+        carregaPesquisa(daoProduto.list());
+        carregaProdutos(new ArrayList());
     }
-
+    
     public void carregaPesquisa(List<Produto> lista) {
-        modelPesquisa.setProdutos(lista);
+        modelPesquisa.setData(lista);
         jTablePesquisa.setModel(modelPesquisa);
     }
+    
     public void carregaProdutos(List<Produto> lista) {
-        modelProduto.setProdutos(lista);
+        modelProduto.setData(lista);
         jTableProdutos.setModel(modelProduto);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,7 +147,6 @@ public class CrudPedido extends javax.swing.JDialog {
 
         jBPesquisar.setMnemonic('A');
         jBPesquisar.setToolTipText("Gravar");
-        jBPesquisar.setEnabled(false);
         jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPesquisarActionPerformed(evt);
@@ -278,6 +291,7 @@ public class CrudPedido extends javax.swing.JDialog {
         });
 
         jLLegenda.setText("                     ");
+        jLLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "TOTAL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jTCdCliente.setToolTipText("Código do Cliente");
         jTCdCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "*Código"));
@@ -322,7 +336,7 @@ public class CrudPedido extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 - PIX", "2 -  CARTÃO", "3 - DINHEIRO " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - PIX", "1 -  CARTÃO", "2 - DINHEIRO " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -372,15 +386,12 @@ public class CrudPedido extends javax.swing.JDialog {
                     .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTCdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTCdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTCdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -388,11 +399,12 @@ public class CrudPedido extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLLegenda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jBGravar, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                        .addComponent(jBCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLLegenda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -400,7 +412,23 @@ public class CrudPedido extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-
+        if (jTCdCliente.getText().isEmpty() || daoCliente.clientExists(Integer.valueOf(jTCdCliente.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Cliente Valido");
+            return;
+        }
+        if (modelProduto.getProdutos().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira um Produto");
+            return;
+        }
+        Pedido pedido = new Pedido();
+        pedido.setIdCliente(daoCliente.findById(Integer.valueOf(jTCdCliente.getText().trim())));
+        pedido.setDataPedido(banco.getHoras());
+        pedido.setDataEntregaProgramada(banco.getHoraMaisQuinze());
+        pedido.setDataEntregaEfetivada("");
+        pedido.setPreco(Integer.valueOf(jLLegenda.getText().trim()));
+        pedido.setProdutoList(modelProduto.getProdutos());
+        pedido.setFormaPagamento(jComboBox1.getSelectedIndex());
+        daoPedido.save(pedido);
 
     }//GEN-LAST:event_jBGravarActionPerformed
 
@@ -417,7 +445,7 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jBCancelarKeyPressed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
-
+        dispose();
     }//GEN-LAST:event_jBSairActionPerformed
 
     private void jBSairKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBSairKeyPressed
@@ -449,7 +477,7 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jTDsAmbienteKeyPressed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-
+        modelPesquisa.setProdutos(daoProduto.findByName(jTDsAmbiente.getText()));
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void jTablePesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablePesquisaKeyPressed
@@ -472,8 +500,10 @@ public class CrudPedido extends javax.swing.JDialog {
         jTCdPedido.setEnabled(false);
         jTCdPedido.setText("" + banco.ultimoPedido());
         jTDataPedido.setText(banco.getHoras());
-
+        
         jTCdCliente.grabFocus();
+        jBGravar.setEnabled(true);
+        jBCancelar.setEnabled(true);
     }//GEN-LAST:event_jBIncluirActionPerformed
 
     private void jBIncluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBIncluirKeyPressed
@@ -481,6 +511,21 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jBIncluirKeyPressed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        if (jTCdPedido.getText().isEmpty() || daoPedido.pedidoExists(Integer.valueOf(jTCdPedido.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
+            return;
+        }
+        jTCdPedido.setEnabled(false);
+        jTCdCliente.setEnabled(false);
+        Pedido ped = daoPedido.findById(Integer.valueOf(jTCdPedido.getText().trim()));
+        jTCdCliente.setText(ped.getIdCliente().getIdCliente().toString());
+        jTDsCliente.setText(ped.getIdCliente().getNome());
+        jTDataPedido.setText(ped.getDataPedido());
+        jComboBox1.setSelectedIndex(ped.getFormaPagamento());
+        jLLegenda.setText(ped.getPreco().toString());
+        produtos.clear();
+        produtos = (ped.getProdutoList());
+        modelProd.restaurar();
 
     }//GEN-LAST:event_jBAlterarActionPerformed
 
@@ -489,7 +534,23 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jBAlterarKeyPressed
 
     private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
-
+        if (jTCdPedido.getText().isEmpty() || !daoPedido.pedidoExists(Integer.valueOf(jTCdPedido.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
+            return;
+        }
+        jTCdPedido.setEnabled(true);
+        jTCdCliente.setEnabled(false);
+        Pedido ped = daoPedido.findById(Integer.valueOf(jTCdPedido.getText().trim()));
+        jTCdCliente.setText(ped.getIdCliente().getIdCliente().toString());
+        jTDsCliente.setText(ped.getIdCliente().getNome());
+        jTDataPedido.setText(ped.getDataPedido());
+        jComboBox1.setSelectedIndex(ped.getFormaPagamento());
+        jLLegenda.setText(ped.getPreco().toString());
+        modelProd.limpar();
+        produtos = (ped.getProdutoList());
+        modelProd.restaurar();
+        jBGravar.setEnabled(false);
+        jBExcluir.setEnabled(true);
     }//GEN-LAST:event_jBConsultarActionPerformed
 
     private void jBConsultarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBConsultarKeyPressed
@@ -497,6 +558,15 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jBConsultarKeyPressed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        if (jTCdPedido.getText().isEmpty() || !daoPedido.pedidoExists(Integer.valueOf(jTCdPedido.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
+            return;
+        }
+        if (confirma("Confirma exclusão do Registro?", this) == JOptionPane.YES_NO_OPTION) {
+            daoPedido.delete(daoPedido.findById(Integer.valueOf(jTCdPedido.getText().trim())));
+            JOptionPane.showMessageDialog(this, "Pedido Excluido");
+        }
+        
 
     }//GEN-LAST:event_jBExcluirActionPerformed
 
@@ -509,7 +579,7 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jTCdClienteFocusGained
 
     private void jTCdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCdClienteFocusLost
-        // TODO add your handling code here:
+        jTDsCliente.setText(daoCliente.findById(Integer.valueOf(jTCdCliente.getText().trim())).getNome());                                                   // TODO add your handling code here:
     }//GEN-LAST:event_jTCdClienteFocusLost
 
     private void jTCdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCdClienteActionPerformed
@@ -563,4 +633,114 @@ public class CrudPedido extends javax.swing.JDialog {
     private javax.swing.JTable jTablePesquisa;
     private javax.swing.JTable jTableProdutos;
     // End of variables declaration//GEN-END:variables
+
+    class AmbienteTableModel extends AbstractTableModel {
+        
+        private String[] colunas = new String[]{
+            "Produto", "Preço"};
+        
+        public AmbienteTableModel() {
+        }
+        
+        @Override
+        public int getColumnCount() {
+            return colunas.length;
+        }
+        
+        ;
+        @Override
+        public int getRowCount() {
+            return produtos.size();
+        }
+        
+        ;
+        @Override
+        public String getColumnName(int columnIndex) {
+            return colunas[columnIndex];
+        }
+        
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+        
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Produto d = produtos.get(rowIndex);
+            try {
+                switch (columnIndex) {
+                    case 0:
+                        return d.getNomeProduto();
+                    case 1:
+                        return d.getValor();
+                    default:
+                        throw new IndexOutOfBoundsException("columnIndex out of bounds");
+                }
+            } catch (Exception e) {
+                throw new IndexOutOfBoundsException("columnIndex out of bounds");
+            }
+        }
+        
+        @Override
+        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+            try {
+                if (columnIndex == 0 && rowIndex >= 0) {
+                    try {
+                        produtos.set(rowIndex, (Produto) aValue);
+                        //(listaNomeAmbientes.get(rowIndex));
+                    } catch (Exception e) {
+                    }
+                }
+                fireTableDataChanged();
+            } catch (Exception e) {
+            }
+        }
+        
+        ;
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            if (true) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        public void addEmbalagem(Produto desc) {
+            produtos.add(desc);
+            int ultimoIndice = getRowCount() - 1;
+//            fireTableRowsInserted(ultimoIndice, ultimoIndice);
+        }
+        
+        public void removeDesc(Produto prod, int idx) {
+            produtos.remove(prod);
+            remove(idx);
+            fireTableRowsDeleted(idx, idx);
+        }
+        
+        public void limpar() {
+            produtos.clear();
+            fireTableDataChanged();
+        }
+        
+        public void restaurar() {
+            fireTableDataChanged();
+        }
+        
+        public boolean isEmpty() {
+            return produtos.isEmpty();
+        }
+    }
+    
+    public int confirma(String titulo) {
+        return javax.swing.JOptionPane.showConfirmDialog(
+                null, titulo,
+                "Confirma", JOptionPane.YES_NO_OPTION);
+    }
+    
+    public int confirma(String titulo, Component frame) {
+        return javax.swing.JOptionPane.showConfirmDialog(
+                frame, titulo,
+                "Confirma", JOptionPane.YES_NO_OPTION);
+    }
 }

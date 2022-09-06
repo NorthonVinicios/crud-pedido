@@ -24,7 +24,7 @@ public class ModelPesquisa extends AbstractTableModel {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
-         fireTableDataChanged();
+        fireTableDataChanged();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ModelPesquisa extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -51,6 +51,19 @@ public class ModelPesquisa extends AbstractTableModel {
                 return "";
             default:
                 return "";
+        }
+    }
+
+    public void setData(List<Produto> lista) {
+        if (lista == null) {
+            this.produtos = new ArrayList<Produto>();
+        } else {
+            this.produtos = produtos;
+        }
+        try {
+            fireTableDataChanged();
+            fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
+        } catch (Exception e) {
         }
     }
 

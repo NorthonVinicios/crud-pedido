@@ -16,42 +16,59 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModelPedidos extends AbstractTableModel {
 
-    private List<Pedido> produtos = new ArrayList();
+    private List<Pedido> pedidos = new ArrayList();
 
     public List<Pedido> getPedidos() {
-        return produtos;
+        return pedidos;
     }
 
-    public void setPedidos(List<Pedido> produtos) {
-        this.produtos = produtos;
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
         fireTableDataChanged();
     }
 
     @Override
     public int getRowCount() {
-        return produtos.size();
+        return pedidos.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 3;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Pedido pedido = produtos.get(rowIndex);
+        Pedido pedido = pedidos.get(rowIndex);
         switch (columnIndex) {
             case 1:
                 return pedido.getIdPedido();
             case 2:
-                return pedido.getIdCliente().getNome();
-            case 3:
                 return pedido.getPreco();
-            case 4:
+            case 3:
                 return pedido.getDataEntregaProgramada();
             default:
                 return "";
         }
+    }
+
+    @Override
+    public String getColumnName(int columnIndex) {
+        return"";
+    }
+
+    public void setData(List<Pedido> lista) {
+        if (lista == null) {
+            this.pedidos = new ArrayList<Pedido>();
+        } else {
+            this.pedidos = pedidos;
+        }
+        try {
+            fireTableDataChanged();
+            fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
+        } catch (Exception e) {
+        }
+        System.out.println(pedidos.size());
     }
 
 }

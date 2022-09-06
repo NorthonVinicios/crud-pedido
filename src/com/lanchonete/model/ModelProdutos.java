@@ -5,6 +5,8 @@
  */
 package com.lanchonete.model;
 
+import br.com.neax.enumeration.EnumItf;
+import br.com.neax.jtable.enumeration.MessageTableEnum;
 import com.lanchonete.classes.Produto;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class ModelProdutos extends AbstractTableModel {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+        fireTableDataChanged();
     }
 
     @Override
@@ -50,6 +53,24 @@ public class ModelProdutos extends AbstractTableModel {
                 return "";
             default:
                 return "";
+        }
+    }
+
+    @Override
+    public String getColumnName(int columnIndex) {
+        return "";
+    }
+
+    public void setData(List<Produto> lista) {
+        if (lista == null) {
+            this.produtos = new ArrayList<Produto>();
+        } else {
+            this.produtos = produtos;
+        }
+        try {
+            fireTableDataChanged();
+            fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
+        } catch (Exception e) {
         }
     }
 

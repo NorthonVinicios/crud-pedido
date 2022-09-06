@@ -77,18 +77,13 @@
                   <Component id="jBConsultar" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="jBExcluir" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTCdPedido" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                          <Component id="jTDataPedido" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTCdPedido" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="jTDataPedido" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jComboBox1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -98,11 +93,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jBGravar" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jBCancelar" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jBSair" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jLLegenda" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jBGravar" alignment="0" pref="33" max="32767" attributes="0"/>
+                      <Component id="jBCancelar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jBSair" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jLLegenda" min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -219,7 +216,6 @@
           <Properties>
             <Property name="mnemonic" type="int" value="65"/>
             <Property name="toolTipText" type="java.lang.String" value="Gravar"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBPesquisarActionPerformed"/>
@@ -359,6 +355,16 @@
     <Component class="javax.swing.JLabel" name="jLLegenda">
       <Properties>
         <Property name="text" type="java.lang.String" value="                     "/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="TOTAL">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+              <Font PropertyName="font" name="Tahoma" size="11" style="1"/>
+            </TitledBorder>
+          </Border>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTCdCliente">
@@ -412,9 +418,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="1 - PIX"/>
-            <StringItem index="1" value="2 -  CART&#xc3;O"/>
-            <StringItem index="2" value="3 - DINHEIRO "/>
+            <StringItem index="0" value="0 - PIX"/>
+            <StringItem index="1" value="1 -  CART&#xc3;O"/>
+            <StringItem index="2" value="2 - DINHEIRO "/>
           </StringArray>
         </Property>
       </Properties>

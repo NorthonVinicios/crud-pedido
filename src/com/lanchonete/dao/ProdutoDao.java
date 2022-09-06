@@ -69,11 +69,11 @@ public class ProdutoDao {
     }
 
     public List<Produto> findByName(String nome) {
-        String sql = "SELECT * FROM produto WHERE nome_produto LIKE '%?%'";
+        String sql = "SELECT * FROM produto WHERE nome_produto LIKE ?";
         List<Produto> list = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, nome);
+            stmt.setString(1, "'%" + nome + "%'");
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 Produto produto = new Produto();

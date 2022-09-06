@@ -5,6 +5,7 @@
  */
 package com.lanchonete.dao;
 
+import com.lanchonete.classes.Cliente;
 import com.lanchonete.classes.Pedido;
 import java.sql.*;
 import java.util.ArrayList;
@@ -119,5 +120,27 @@ public class PedidoDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean pedidoExists(int id) {
+        String sql = "SELECT * FROM pedido WHERE id_pedido=?";
+        List<Pedido> list = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                Pedido client = new Pedido();
+                client.setIdPedido(result.getInt("id_pedido"));
+                list.add(client);
+            }
+            if (list.isEmpty()) {
+                System.out.println("EXISTE");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+
+        return true;
     }
 }
