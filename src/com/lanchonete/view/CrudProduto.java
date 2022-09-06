@@ -28,6 +28,8 @@ public class CrudProduto extends javax.swing.JDialog {
 
     public CrudProduto(java.awt.Window parent) {
         super(parent);
+        setModal(true);
+        setLocationRelativeTo(null);
         initComponents();
         limita();
     }
@@ -495,6 +497,9 @@ public class CrudProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBGravarKeyPressed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+        limpar();
+        jBGravar.setEnabled(false);
+        jBGravar.setEnabled(false);
 
     }//GEN-LAST:event_jBCancelarActionPerformed
 
@@ -511,7 +516,8 @@ public class CrudProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBSairKeyPressed
 
     private void jBListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBListarActionPerformed
-
+        ListarProdutos list = new ListarProdutos(CrudProduto.this);
+        list.setVisible(true);
     }//GEN-LAST:event_jBListarActionPerformed
 
     private void jBListarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBListarKeyPressed

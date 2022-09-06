@@ -26,6 +26,7 @@ public class Frame extends javax.swing.JFrame {
     public Frame() {
         initComponents();
         carregaTabela(daoPedido.list());
+        setLocationRelativeTo(null);
     }
 
     public void carregaTabela(List<Pedido> lista) {

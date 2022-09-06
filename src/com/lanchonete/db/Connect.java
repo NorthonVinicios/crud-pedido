@@ -87,4 +87,17 @@ public class Connect {
         return true;
     }
 
+    public String retornaPagamento(int id) {
+        switch (id) {
+            case 0:
+                return "PIX";
+            case 1:
+                return "CARTÃO";
+            case 2:
+                return "DINHEIRO";
+            default:
+                return "NÃO PAGOU";
+        }
+    }
+
 }

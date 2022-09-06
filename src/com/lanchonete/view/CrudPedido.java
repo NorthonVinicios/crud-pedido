@@ -41,11 +41,14 @@ public class CrudPedido extends javax.swing.JDialog {
 
     public CrudPedido(java.awt.Frame parent) {
         super(parent, true);
+        setModal(true);
         initComponents();
 
         TableCellRenderer renderer = new EvenOddRenderer();
         jTablePesquisa.setDefaultRenderer(Object.class, renderer);
         jTableProdutos.setDefaultRenderer(Object.class, renderer);
+
+        setLocationRelativeTo(null);
 
         carregaPesquisa(daoProduto.list());
         carregaProdutos(new ArrayList());
@@ -85,6 +88,7 @@ public class CrudPedido extends javax.swing.JDialog {
         jTCdCliente = new javax.swing.JTextField();
         jTDsCliente = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jBListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -351,6 +355,19 @@ public class CrudPedido extends javax.swing.JDialog {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - PIX", "1 -  CARTÃO", "2 - DINHEIRO " }));
 
+        jBListar.setMnemonic('E');
+        jBListar.setText("Listar");
+        jBListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBListarActionPerformed(evt);
+            }
+        });
+        jBListar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBListarKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -362,13 +379,15 @@ public class CrudPedido extends javax.swing.JDialog {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLLegenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLLegenda, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBListar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBGravar)
-                                .addGap(6, 6, 6)
+                                .addComponent(jBGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBCancelar)
-                                .addGap(6, 6, 6)
-                                .addComponent(jBSair))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBSair, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTCdCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -411,12 +430,13 @@ public class CrudPedido extends javax.swing.JDialog {
                     .addComponent(jTDsCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jBGravar, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                        .addComponent(jBListar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLLegenda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -624,6 +644,15 @@ public class CrudPedido extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableProdutosKeyPressed
 
+    private void jBListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBListarActionPerformed
+        ListarPedidos list = new ListarPedidos(CrudPedido.this);
+        list.setVisible(true);
+    }//GEN-LAST:event_jBListarActionPerformed
+
+    private void jBListarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBListarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBListarKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
@@ -632,6 +661,7 @@ public class CrudPedido extends javax.swing.JDialog {
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBIncluir;
+    private javax.swing.JButton jBListar;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBSair;
     private javax.swing.JComboBox<String> jComboBox1;
