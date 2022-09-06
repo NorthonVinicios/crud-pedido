@@ -73,7 +73,6 @@ public class ProdutoDao {
     public List<Produto> findByName(String nome) {
         String sql = "SELECT * FROM produto WHERE nome_produto LIKE ?";
         List<Produto> list = new ArrayList<>();
-        System.out.println("LOUCUR");
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, nome);

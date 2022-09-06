@@ -23,7 +23,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
 @Table(name = "pedido")
 @XmlRootElement
@@ -63,6 +62,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne
     private Cliente idCliente;
+    private Boolean action = Boolean.FALSE;
 
     public Pedido() {
     }
@@ -124,6 +124,14 @@ public class Pedido implements Serializable {
         this.idCliente = idCliente;
     }
 
+    public Boolean getAction() {
+        return action;
+    }
+
+    public void setAction(Boolean action) {
+        this.action = action;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -165,5 +173,5 @@ public class Pedido implements Serializable {
     public void setPreco(Integer preco) {
         this.preco = preco;
     }
-    
+
 }

@@ -59,7 +59,7 @@ public class ModelPedidoListagem extends AbstractTableModel {
             case 5:
                 return banco.retornaPagamento(ped.getFormaPagamento());
             case 6:
-                return "";
+                return ped.getProdutoList().size();
             case 7:
                 return ped.getPreco();
             default:

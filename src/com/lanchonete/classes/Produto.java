@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
 @Table(name = "produto")
 @XmlRootElement
@@ -50,6 +49,7 @@ public class Produto implements Serializable {
     private Integer cor;
     @Column(name = "valor")
     private Integer valor;
+    private Boolean action = Boolean.FALSE;
 
     public Produto() {
     }
@@ -131,5 +131,12 @@ public class Produto implements Serializable {
     public void setPedidoList(List<Pedido> pedidoList) {
         this.pedidoList = pedidoList;
     }
-    
+
+    public Boolean getAction() {
+        return action;
+    }
+
+    public void setAction(Boolean action) {
+        this.action = action;
+    }
 }

@@ -8,8 +8,9 @@ package com.lanchonete.model;
 import com.lanchonete.classes.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
-
 
 public class ModelPesquisa extends AbstractTableModel {
 
@@ -31,7 +32,7 @@ public class ModelPesquisa extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -39,30 +40,83 @@ public class ModelPesquisa extends AbstractTableModel {
         Produto produto = produtos.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return produto.getIdProduto();
+                return produto.getAction();
             case 1:
-                return produto.getNomeProduto();
+                return produto.getIdProduto();
             case 2:
-                System.out.println(produto.getValor());
+                return produto.getNomeProduto();
+            case 3:
                 return produto.getValor();
-            case 4:
-                return "";
             default:
                 return "";
         }
     }
 
-    public void setData(List<Produto> lista) {
-        if (lista == null) {
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+        Produto doc = produtos.get(rowIndex);
+        if (columnIndex == 0) {
+            for (Produto f : produtos) {
+                if (f.getIdProduto() == doc.getIdProduto()) {
+                    f.setAction((Boolean) aValue);
+                    fireTableDataChanged();
+                }
+            }
+        }
+
+    }
+
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return columnIndex == 0;
+    }
+
+    public void setData(List<Produto> produtos) {
+        if (produtos == null) {
             this.produtos = new ArrayList<Produto>();
         } else {
-            this.produtos = lista;
+            this.produtos = produtos;
         }
         try {
             fireTableDataChanged();
-            fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
+            fireTableRowsInserted(produtos.size() - 1, produtos.size() - 1);
         } catch (Exception e) {
         }
+    }
+
+    public void setValueFalse() throws Exception {
+        for (Produto f : produtos) {
+            f.setAction(false);
+            fireTableDataChanged();
+        }
+    }
+
+    public void setValueTrue() throws Exception {
+        for (Produto f : produtos) {
+            f.setAction(true);
+            fireTableDataChanged();
+        }
+
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return columnIndex == 0 ? Boolean.class
+                : String.class;
+    }
+
+    public List<Produto> getSelecionados() {
+        List<Produto> newprodutos = new ArrayList<>();
+        for (Produto it : produtos) {
+            if (it.getAction()) {
+                newprodutos.add(it);
+            }
+        }
+        return newprodutos;
+    }
+
+    @Override
+    public String getColumnName(int columnIndex) {
+        return"";
     }
 
 }
