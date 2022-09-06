@@ -135,7 +135,6 @@ public class PedidoDao {
                 list.add(client);
             }
             if (list.isEmpty()) {
-                System.out.println("EXISTE");
                 return false;
             }
         } catch (Exception e) {

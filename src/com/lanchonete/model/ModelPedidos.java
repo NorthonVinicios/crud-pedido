@@ -41,11 +41,11 @@ public class ModelPedidos extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Pedido pedido = pedidos.get(rowIndex);
         switch (columnIndex) {
-            case 1:
+            case 0:
                 return pedido.getIdPedido();
-            case 2:
+            case 1:
                 return pedido.getPreco();
-            case 3:
+            case 2:
                 return pedido.getDataEntregaProgramada();
             default:
                 return "";
@@ -61,7 +61,7 @@ public class ModelPedidos extends AbstractTableModel {
         if (lista == null) {
             this.pedidos = new ArrayList<Pedido>();
         } else {
-            this.pedidos = pedidos;
+            this.pedidos = lista;
         }
         try {
             fireTableDataChanged();

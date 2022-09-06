@@ -36,20 +36,20 @@ public class ModelProdutos extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Produto produto = produtos.get(rowIndex);
         switch (columnIndex) {
-            case 1:
+            case 0:
                 return produto.getIdProduto();
-            case 2:
+            case 1:
                 return produto.getNomeProduto();
-            case 3:
+            case 2:
                 return produto.getValor();
-            case 4:
+            case 3:
                 return "";
             default:
                 return "";
@@ -65,7 +65,7 @@ public class ModelProdutos extends AbstractTableModel {
         if (lista == null) {
             this.produtos = new ArrayList<Produto>();
         } else {
-            this.produtos = produtos;
+            this.produtos = lista;
         }
         try {
             fireTableDataChanged();

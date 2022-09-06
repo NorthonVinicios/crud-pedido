@@ -10,7 +10,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ProdutoDao {
 
     public Connection connection;
@@ -24,7 +23,7 @@ public class ProdutoDao {
             this.connection = DriverManager.getConnection(url, user, password);
 
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -38,10 +37,13 @@ public class ProdutoDao {
                 Produto produto = new Produto();
                 produto.setIdProduto(result.getInt("id_produto"));
                 produto.setNomeProduto(result.getString("nome_produto"));
+                produto.setCor(result.getInt("cor"));
+                produto.setValor(result.getInt("valor"));
+                produto.setTamanhoProduto(result.getString("tamanho_produto"));
                 list.add(produto);
             }
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return list;
     }
@@ -63,7 +65,7 @@ public class ProdutoDao {
                 list.add(produto);
             }
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return list.get(0);
     }
@@ -71,9 +73,10 @@ public class ProdutoDao {
     public List<Produto> findByName(String nome) {
         String sql = "SELECT * FROM produto WHERE nome_produto LIKE ?";
         List<Produto> list = new ArrayList<>();
+        System.out.println("LOUCUR");
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, "'%" + nome + "%'");
+            stmt.setString(1, nome);
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 Produto produto = new Produto();
@@ -83,6 +86,7 @@ public class ProdutoDao {
                 produto.setValor(result.getInt("valor"));
                 produto.setTamanhoProduto(result.getString("tamanho_produto"));
                 list.add(produto);
+                System.out.println(produto.getNomeProduto());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,6 +138,29 @@ public class ProdutoDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean produtoExists(int id) {
+        String sql = "SELECT * FROM produto WHERE id_produto=?";
+        List<Produto> list = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                Produto client = new Produto();
+                client.setIdProduto(result.getInt("id_produto"));
+                list.add(client);
+            }
+            if (list.isEmpty()) {
+                System.out.println("EXISTE");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
 }

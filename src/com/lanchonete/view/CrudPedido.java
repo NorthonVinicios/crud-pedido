@@ -5,6 +5,9 @@
  */
 package com.lanchonete.view;
 
+import static br.com.agrodados.nxintegracao.view.cadastro.JDCadastroLocal.listaNomeAmbientes;
+import br.com.neax.util.NXGeraLog;
+import br.com.neax.util.NXUteis;
 import com.lanchonete.classes.Pedido;
 import com.lanchonete.classes.Produto;
 import com.lanchonete.dao.ClienteDao;
@@ -13,14 +16,19 @@ import com.lanchonete.dao.ProdutoDao;
 import com.lanchonete.db.Connect;
 import com.lanchonete.model.ModelPesquisa;
 import com.lanchonete.model.ModelProdutos;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 public class CrudPedido extends javax.swing.JDialog {
-    
+
     PedidoDao daoPedido = new PedidoDao();
     ClienteDao daoCliente = new ClienteDao();
     ProdutoDao daoProduto = new ProdutoDao();
@@ -28,26 +36,31 @@ public class CrudPedido extends javax.swing.JDialog {
     public ModelPesquisa modelPesquisa = new ModelPesquisa();
     public ModelProdutos modelProduto = new ModelProdutos();
     private List<Produto> produtos = new ArrayList();
-    
+
     private AmbienteTableModel modelProd;
-    
+
     public CrudPedido(java.awt.Frame parent) {
         super(parent, true);
         initComponents();
+
+        TableCellRenderer renderer = new EvenOddRenderer();
+        jTablePesquisa.setDefaultRenderer(Object.class, renderer);
+        jTableProdutos.setDefaultRenderer(Object.class, renderer);
+
         carregaPesquisa(daoProduto.list());
         carregaProdutos(new ArrayList());
     }
-    
+
     public void carregaPesquisa(List<Produto> lista) {
         modelPesquisa.setData(lista);
         jTablePesquisa.setModel(modelPesquisa);
     }
-    
+
     public void carregaProdutos(List<Produto> lista) {
         modelProduto.setData(lista);
         jTableProdutos.setModel(modelProduto);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -362,9 +375,9 @@ public class CrudPedido extends javax.swing.JDialog {
                                 .addComponent(jTDsCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTCdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(2, 2, 2)
                                 .addComponent(jTDataPedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,7 +490,8 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jTDsAmbienteKeyPressed
 
     private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-        modelPesquisa.setProdutos(daoProduto.findByName(jTDsAmbiente.getText()));
+        modelPesquisa.setData(daoProduto.findByName(jTDsAmbiente.getText()));
+        jTablePesquisa.setModel(modelPesquisa);
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void jTablePesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablePesquisaKeyPressed
@@ -485,11 +499,11 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jTablePesquisaKeyPressed
 
     private void jTDataPedidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTDataPedidoFocusGained
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTDataPedidoFocusGained
 
     private void jTDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTDataPedidoFocusLost
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTDataPedidoFocusLost
 
     private void jTDataPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDataPedidoKeyPressed
@@ -500,7 +514,7 @@ public class CrudPedido extends javax.swing.JDialog {
         jTCdPedido.setEnabled(false);
         jTCdPedido.setText("" + banco.ultimoPedido());
         jTDataPedido.setText(banco.getHoras());
-        
+
         jTCdCliente.grabFocus();
         jBGravar.setEnabled(true);
         jBCancelar.setEnabled(true);
@@ -566,7 +580,7 @@ public class CrudPedido extends javax.swing.JDialog {
             daoPedido.delete(daoPedido.findById(Integer.valueOf(jTCdPedido.getText().trim())));
             JOptionPane.showMessageDialog(this, "Pedido Excluido");
         }
-        
+
 
     }//GEN-LAST:event_jBExcluirActionPerformed
 
@@ -635,35 +649,35 @@ public class CrudPedido extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     class AmbienteTableModel extends AbstractTableModel {
-        
+
         private String[] colunas = new String[]{
             "Produto", "Preço"};
-        
+
         public AmbienteTableModel() {
         }
-        
+
         @Override
         public int getColumnCount() {
             return colunas.length;
         }
-        
+
         ;
         @Override
         public int getRowCount() {
             return produtos.size();
         }
-        
+
         ;
         @Override
         public String getColumnName(int columnIndex) {
             return colunas[columnIndex];
         }
-        
+
         @Override
         public Class<?> getColumnClass(int columnIndex) {
             return String.class;
         }
-        
+
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             Produto d = produtos.get(rowIndex);
@@ -680,7 +694,7 @@ public class CrudPedido extends javax.swing.JDialog {
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
             }
         }
-        
+
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             try {
@@ -695,7 +709,7 @@ public class CrudPedido extends javax.swing.JDialog {
             } catch (Exception e) {
             }
         }
-        
+
         ;
 
         public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -705,42 +719,111 @@ public class CrudPedido extends javax.swing.JDialog {
                 return true;
             }
         }
-        
+
         public void addEmbalagem(Produto desc) {
             produtos.add(desc);
             int ultimoIndice = getRowCount() - 1;
 //            fireTableRowsInserted(ultimoIndice, ultimoIndice);
         }
-        
+
         public void removeDesc(Produto prod, int idx) {
             produtos.remove(prod);
             remove(idx);
             fireTableRowsDeleted(idx, idx);
         }
-        
+
         public void limpar() {
             produtos.clear();
             fireTableDataChanged();
         }
-        
+
         public void restaurar() {
             fireTableDataChanged();
         }
-        
+
         public boolean isEmpty() {
             return produtos.isEmpty();
         }
     }
-    
+
     public int confirma(String titulo) {
         return javax.swing.JOptionPane.showConfirmDialog(
                 null, titulo,
                 "Confirma", JOptionPane.YES_NO_OPTION);
     }
-    
+
     public int confirma(String titulo, Component frame) {
         return javax.swing.JOptionPane.showConfirmDialog(
                 frame, titulo,
                 "Confirma", JOptionPane.YES_NO_OPTION);
     }
+
+    private void adicionarDesc() {
+        try {
+            String desc = NXUteis.Trim(jTDsAmbiente);
+            //(desc);
+            if (!listaNomeAmbientes.contains(desc)) {
+                listaNomeAmbientes.add(desc);
+            }
+            modelProd.fireTableDataChanged();
+
+            jTDsAmbiente.setSelectionStart(0);
+        } catch (Exception ex) {
+            NXGeraLog.gravaErro(ex, this);
+        }
+    }
+
+    class EvenOddRenderer implements TableCellRenderer {
+
+        public final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column);
+            ((JLabel) renderer).setOpaque(true);
+            Color foreground, background;
+
+            Produto rec = modelPesquisa.getProdutos().get(row);
+
+            if (isSelected) {
+                foreground = Color.BLACK;
+                background = Color.yellow;
+            } else {
+                if (row % 2 == 0) {
+                    foreground = Color.BLACK;
+                    background = Color.white;
+                } else {
+                    foreground = Color.BLACK;
+                    background = new java.awt.Color(180, 232, 255);
+                }
+            }
+            if (produtos.contains(rec)) {
+                foreground = Color.BLACK;
+                background = new java.awt.Color(3, 187, 133);
+//                if (column == 5) {
+//                    foreground = Color.BLACK;
+//                    background = new java.awt.Color(3, 187, 150);
+//
+//                }
+            }
+
+            ((JLabel) renderer).setHorizontalAlignment(JLabel.CENTER);
+            ((JLabel) renderer).setHorizontalTextPosition(JLabel.CENTER);
+//            if (column == 5 || column == 6 || column == 7) {
+//                ((JLabel) renderer).setHorizontalAlignment(JLabel.RIGHT);
+//                ((JLabel) renderer).setHorizontalTextPosition(JLabel.RIGHT);
+//            }
+//            if (column == 1) {
+//                ((JLabel) renderer).setHorizontalAlignment(JLabel.LEFT);
+//                ((JLabel) renderer).setHorizontalTextPosition(JLabel.LEFT);
+//            }
+            renderer.setForeground(foreground);
+            renderer.setBackground(background);
+
+            return renderer;
+        }
+    }
+
 }

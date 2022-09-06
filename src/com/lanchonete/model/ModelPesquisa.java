@@ -10,10 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Neax
- */
+
 public class ModelPesquisa extends AbstractTableModel {
 
     private List<Produto> produtos = new ArrayList();
@@ -41,11 +38,12 @@ public class ModelPesquisa extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Produto produto = produtos.get(rowIndex);
         switch (columnIndex) {
-            case 1:
+            case 0:
                 return produto.getIdProduto();
-            case 2:
+            case 1:
                 return produto.getNomeProduto();
-            case 3:
+            case 2:
+                System.out.println(produto.getValor());
                 return produto.getValor();
             case 4:
                 return "";
@@ -58,7 +56,7 @@ public class ModelPesquisa extends AbstractTableModel {
         if (lista == null) {
             this.produtos = new ArrayList<Produto>();
         } else {
-            this.produtos = produtos;
+            this.produtos = lista;
         }
         try {
             fireTableDataChanged();

@@ -26,7 +26,7 @@ public class Connect {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexão bem sucedida!");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,15 +35,31 @@ public class Connect {
 
     public int ultimoPedido() {
         try {
-            String sql = "SELECT MAX(ID) FROM pedido";
+            String sql = "select max(id_pedido) from pedido";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet result = stm.executeQuery();
-            List<Cliente> list = new ArrayList<>();
-            int id = result.getInt("id_cliente");
-            connection.close();
-            return id;
+            result.next();
+            int id = result.getInt("max");
+
+            return id + 1;
         } catch (Exception e) {
-            return 0;
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int ultimoProduto() {
+        try {
+            String sql = "select max(id_produto) from produto";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet result = stm.executeQuery();
+            result.next();
+            int id = result.getInt("max");
+
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 7;
         }
     }
 
@@ -52,10 +68,23 @@ public class Connect {
         String data = (LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonth() + "/" + LocalDateTime.now().getYear());
         return data + " | " + hora;
     }
+
     public String getHoraMaisQuinze() {
         String hora = (LocalDateTime.now().plusMinutes(15).getHour() + ":" + (LocalDateTime.now().plusMinutes(15).getMinute()));
         String data = (LocalDateTime.now().plusMinutes(15).getDayOfMonth() + "/" + LocalDateTime.now().plusMinutes(15).getMonth() + "/" + LocalDateTime.now().getYear());
         return data + " | " + hora;
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -5,18 +5,31 @@
  */
 package com.lanchonete.view;
 
-/**
- *
- * @author Neax
- */
+import static br.com.neax.util.NXDialogos.confirma;
+import com.lanchonete.classes.Produto;
+import com.lanchonete.dao.ClienteDao;
+import com.lanchonete.dao.PedidoDao;
+import com.lanchonete.dao.ProdutoDao;
+import com.lanchonete.db.Connect;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.swing.JOptionPane;
+
 public class CrudProduto extends javax.swing.JDialog {
 
     /**
      * Creates new form CrudProduto
      */
+    Connect banco = new Connect();
+    PedidoDao daoPedido = new PedidoDao();
+    ClienteDao daoCliente = new ClienteDao();
+    ProdutoDao daoProduto = new ProdutoDao();
+
     public CrudProduto(java.awt.Window parent) {
         super(parent);
         initComponents();
+        limita();
     }
 
     /**
@@ -28,26 +41,543 @@ public class CrudProduto extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jBIncluir = new javax.swing.JButton();
+        jBAlterar = new javax.swing.JButton();
+        jBConsultar = new javax.swing.JButton();
+        jBExcluir = new javax.swing.JButton();
+        jTTamanho = new javax.swing.JTextField();
+        jTNome = new javax.swing.JTextField();
+        jTCdProduto = new javax.swing.JTextField();
+        jTValor = new javax.swing.JTextField();
+        jBGravar = new javax.swing.JButton();
+        jBCancelar = new javax.swing.JButton();
+        jBSair = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jBListar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jBIncluir.setMnemonic('N');
+        jBIncluir.setText("Novo");
+        jBIncluir.setToolTipText("Novo Pedido");
+        jBIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBIncluirActionPerformed(evt);
+            }
+        });
+        jBIncluir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBIncluirKeyPressed(evt);
+            }
+        });
+
+        jBAlterar.setMnemonic('A');
+        jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
+        jBAlterar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBAlterarKeyPressed(evt);
+            }
+        });
+
+        jBConsultar.setMnemonic('C');
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarActionPerformed(evt);
+            }
+        });
+        jBConsultar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBConsultarKeyPressed(evt);
+            }
+        });
+
+        jBExcluir.setMnemonic('E');
+        jBExcluir.setText("Excluir");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
+        jBExcluir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBExcluirKeyPressed(evt);
+            }
+        });
+
+        jTTamanho.setToolTipText("Código do Cliente");
+        jTTamanho.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tamanho "));
+        jTTamanho.setDisabledTextColor(new java.awt.Color(0, 0, 255));
+        jTTamanho.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTTamanhoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTTamanhoFocusLost(evt);
+            }
+        });
+        jTTamanho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTTamanhoActionPerformed(evt);
+            }
+        });
+        jTTamanho.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTTamanhoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTTamanhoKeyTyped(evt);
+            }
+        });
+
+        jTNome.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Nome"));
+        jTNome.setDisabledTextColor(new java.awt.Color(0, 0, 255));
+        jTNome.setEnabled(false);
+        jTNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTNomeFocusLost(evt);
+            }
+        });
+        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTNomeKeyPressed(evt);
+            }
+        });
+
+        jTCdProduto.setToolTipText("Código do Cliente");
+        jTCdProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "*Produto"));
+        jTCdProduto.setDisabledTextColor(new java.awt.Color(0, 0, 255));
+        jTCdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTCdProdutoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTCdProdutoFocusLost(evt);
+            }
+        });
+        jTCdProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTCdProdutoActionPerformed(evt);
+            }
+        });
+        jTCdProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCdProdutoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTCdProdutoKeyTyped(evt);
+            }
+        });
+
+        jTValor.setToolTipText("Código do Cliente");
+        jTValor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Valor"));
+        jTValor.setDisabledTextColor(new java.awt.Color(0, 0, 255));
+        jTValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTValorFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTValorFocusLost(evt);
+            }
+        });
+        jTValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTValorActionPerformed(evt);
+            }
+        });
+        jTValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTValorKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTValorKeyTyped(evt);
+            }
+        });
+
+        jBGravar.setText("Gravar");
+        jBGravar.setEnabled(false);
+        jBGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGravarActionPerformed(evt);
+            }
+        });
+        jBGravar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBGravarKeyPressed(evt);
+            }
+        });
+
+        jBCancelar.setText("Cancelar");
+        jBCancelar.setEnabled(false);
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
+        jBCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBCancelarKeyPressed(evt);
+            }
+        });
+
+        jBSair.setText("Sair");
+        jBSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSairActionPerformed(evt);
+            }
+        });
+        jBSair.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBSairKeyPressed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - VERMELHO", "1 -  VERDE", "2 - AZUL", "3 - ROXO", "4 - LILÁS " }));
+
+        jBListar.setMnemonic('E');
+        jBListar.setText("Listar");
+        jBListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBListarActionPerformed(evt);
+            }
+        });
+        jBListar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBListarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTCdProduto)
+                            .addComponent(jBIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTNome)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTValor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBListar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBGravar)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBCancelar)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBSair)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTCdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBListar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIncluirActionPerformed
+        jTCdProduto.setEnabled(false);
+        jTCdProduto.setText("" + banco.ultimoProduto());
+        jTNome.setEnabled(true);
+
+        jTTamanho.grabFocus();
+        jBGravar.setEnabled(true);
+        jBCancelar.setEnabled(true);
+        jBListar.setEnabled(false);
+    }//GEN-LAST:event_jBIncluirActionPerformed
+
+    private void jBIncluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBIncluirKeyPressed
+
+    }//GEN-LAST:event_jBIncluirKeyPressed
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        if (jTCdProduto.getText().isEmpty() || daoProduto.produtoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um produto Valido");
+            return;
+        }
+        jTCdProduto.setEnabled(false);
+        Produto ped = daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim()));
+        jTTamanho.setText(ped.getTamanhoProduto());
+        jTNome.setText(ped.getNomeProduto());
+        jComboBox1.setSelectedIndex(ped.getCor());
+        jTValor.setText(ped.getValor().toString());
+    }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jBAlterarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBAlterarKeyPressed
+
+    }//GEN-LAST:event_jBAlterarKeyPressed
+
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        if (jTCdProduto.getText().isEmpty() || !daoPedido.pedidoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
+            return;
+        }
+        jTCdProduto.setEnabled(false);
+        Produto ped = daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim()));
+        jTTamanho.setText(ped.getTamanhoProduto());
+        jTNome.setText(ped.getNomeProduto());
+        jComboBox1.setSelectedIndex(ped.getCor());
+        jTValor.setText(ped.getValor().toString());
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBConsultarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBConsultarKeyPressed
+
+    }//GEN-LAST:event_jBConsultarKeyPressed
+
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        if (jTCdProduto.getText().isEmpty() || daoPedido.pedidoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Produto Valido");
+            return;
+        }
+        if (confirma("Confirma exclusão do Produto?", this) == JOptionPane.YES_NO_OPTION) {
+            daoProduto.delete(daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim())));
+            JOptionPane.showMessageDialog(this, "Produto Excluido");
+        }
+
+    }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jBExcluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBExcluirKeyPressed
+
+    }//GEN-LAST:event_jBExcluirKeyPressed
+
+    private void jTTamanhoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTTamanhoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTamanhoFocusGained
+
+    private void jTTamanhoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTTamanhoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTamanhoFocusLost
+
+    private void jTTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTamanhoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTamanhoActionPerformed
+
+    private void jTTamanhoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTamanhoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTamanhoKeyPressed
+
+    private void jTTamanhoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTamanhoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTamanhoKeyTyped
+
+    private void jTNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTNomeFocusGained
+
+    }//GEN-LAST:event_jTNomeFocusGained
+
+    private void jTNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTNomeFocusLost
+
+    }//GEN-LAST:event_jTNomeFocusLost
+
+    private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
+
+    }//GEN-LAST:event_jTNomeKeyPressed
+
+    private void jTCdProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCdProdutoFocusGained
+
+    }//GEN-LAST:event_jTCdProdutoFocusGained
+
+    private void jTCdProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCdProdutoFocusLost
+
+    }//GEN-LAST:event_jTCdProdutoFocusLost
+
+    private void jTCdProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCdProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTCdProdutoActionPerformed
+
+    private void jTCdProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCdProdutoKeyPressed
+
+    }//GEN-LAST:event_jTCdProdutoKeyPressed
+
+    private void jTCdProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCdProdutoKeyTyped
+
+    }//GEN-LAST:event_jTCdProdutoKeyTyped
+
+    private void jTValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTValorFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTValorFocusGained
+
+    private void jTValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTValorFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTValorFocusLost
+
+    private void jTValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTValorActionPerformed
+
+    private void jTValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTValorKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTValorKeyPressed
+
+    private void jTValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTValorKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTValorKeyTyped
+
+    private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
+        if (jTNome.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira um Nome");
+            return;
+        }
+        if (jTValor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira um Valor");
+            return;
+        }
+        if (!banco.isNumeric(jTValor.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Valor Válido");
+            return;
+        }
+        if (!banco.isNumeric(jTTamanho.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Tamanho Válido");
+            return;
+        }
+        Produto produto = new Produto();
+        produto.setNomeProduto(jTNome.getText().trim());
+        produto.setValor(Integer.valueOf(jTValor.getText().trim()));
+        produto.setTamanhoProduto(jTTamanho.getText().trim());
+        produto.setCor(jComboBox1.getSelectedIndex());
+        daoProduto.save(produto);
+        limpar();
+        JOptionPane.showMessageDialog(this, "Produto salvo!");
+    }//GEN-LAST:event_jBGravarActionPerformed
+
+    private void jBGravarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBGravarKeyPressed
+
+    }//GEN-LAST:event_jBGravarKeyPressed
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+
+    }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jBCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBCancelarKeyPressed
+
+    }//GEN-LAST:event_jBCancelarKeyPressed
+
+    private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSairActionPerformed
+
+    private void jBSairKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBSairKeyPressed
+        dispose();
+    }//GEN-LAST:event_jBSairKeyPressed
+
+    private void jBListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBListarActionPerformed
+
+    }//GEN-LAST:event_jBListarActionPerformed
+
+    private void jBListarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBListarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBListarKeyPressed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAlterar;
+    private javax.swing.JButton jBCancelar;
+    private javax.swing.JButton jBConsultar;
+    private javax.swing.JButton jBExcluir;
+    private javax.swing.JButton jBGravar;
+    private javax.swing.JButton jBIncluir;
+    private javax.swing.JButton jBListar;
+    private javax.swing.JButton jBSair;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField jTCdProduto;
+    private javax.swing.JTextField jTNome;
+    private javax.swing.JTextField jTTamanho;
+    private javax.swing.JTextField jTValor;
     // End of variables declaration//GEN-END:variables
+
+    public void limpar() {
+        jTNome.setText("");
+        jTCdProduto.setText("");
+        jTTamanho.setText("");
+        jTValor.setText("");
+    }
+
+    public void limita() {
+        jTNome.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (jTNome.getText().length() >= 20) // limit to 3 characters
+                {
+                    e.consume();
+                }
+            }
+        });
+        jTCdProduto.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (jTCdProduto.getText().length() >= 20) // limit to 3 characters
+                {
+                    e.consume();
+                }
+            }
+        });
+        jTTamanho.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (jTTamanho.getText().length() >= 3) // limit to 3 characters
+                {
+                    e.consume();
+                }
+            }
+        });
+        jTValor.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (jTValor.getText().length() >= 3) // limit to 3 characters
+                {
+                    e.consume();
+                }
+            }
+        });
+    }
+
 }
