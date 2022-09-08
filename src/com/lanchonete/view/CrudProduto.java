@@ -342,6 +342,10 @@ public class CrudProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBIncluirKeyPressed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        if (!banco.isNumeric(jTCdProduto.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Produto Válido");
+            return;
+        }
         if (jTCdProduto.getText().isEmpty() || daoProduto.produtoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
             JOptionPane.showMessageDialog(this, "Insira um produto Valido");
             return;
@@ -359,20 +363,20 @@ public class CrudProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBAlterarKeyPressed
 
     private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
-//        if (!banco.isNumeric(jTCdProduto.getText())) {
-//            JOptionPane.showMessageDialog(this, "Insira um Produto Válido");
-//            return;
-//        }
-//        if (jTCdProduto.getText().isEmpty() || !daoProduto.pedidoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
-//            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
-//            return;
-//        }
-//        jTCdProduto.setEnabled(false);
-//        Produto ped = daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim()));
-//        jTTamanho.setText(ped.getTamanhoProduto());
-//        jTNome.setText(ped.getNomeProduto());
-//        jComboBox1.setSelectedIndex(ped.getCor());
-//        jTValor.setText(ped.getValor().toString());
+        if (!banco.isNumeric(jTCdProduto.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Produto Válido");
+            return;
+        }
+        if (jTCdProduto.getText().isEmpty() || !daoProduto.produtoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Produto Valido");
+            return;
+        }
+        jTCdProduto.setEnabled(false);
+        Produto ped = daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim()));
+        jTTamanho.setText(ped.getTamanhoProduto());
+        jTNome.setText(ped.getNomeProduto());
+        jComboBox1.setSelectedIndex(ped.getCor());
+        jTValor.setText(ped.getValor().toString());
     }//GEN-LAST:event_jBConsultarActionPerformed
 
     private void jBConsultarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBConsultarKeyPressed
@@ -380,6 +384,10 @@ public class CrudProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBConsultarKeyPressed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        if (!banco.isNumeric(jTCdProduto.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Produto Válido");
+            return;
+        }
         if (jTCdProduto.getText().isEmpty() || daoPedido.pedidoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
             JOptionPane.showMessageDialog(this, "Insira um Produto Valido");
             return;
@@ -501,7 +509,9 @@ public class CrudProduto extends javax.swing.JDialog {
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         limpar();
         jBGravar.setEnabled(false);
-        jBGravar.setEnabled(false);
+        jBCancelar.setEnabled(false);
+        jBListar.setEnabled(true);
+        jTCdProduto.setEnabled(true);
 
     }//GEN-LAST:event_jBCancelarActionPerformed
 

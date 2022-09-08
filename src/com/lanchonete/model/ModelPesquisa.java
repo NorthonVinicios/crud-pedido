@@ -15,6 +15,9 @@ import javax.swing.table.AbstractTableModel;
 public class ModelPesquisa extends AbstractTableModel {
 
     private List<Produto> produtos = new ArrayList();
+    
+    private String[] colunas = new String[]{
+        "selecionar", "ID", "Produto", "valor"};
 
     public List<Produto> getProdutos() {
         return produtos;
@@ -116,7 +119,7 @@ public class ModelPesquisa extends AbstractTableModel {
 
     @Override
     public String getColumnName(int columnIndex) {
-        return"";
+        return colunas[columnIndex];
     }
 
 }

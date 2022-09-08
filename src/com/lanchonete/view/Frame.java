@@ -8,7 +8,8 @@ package com.lanchonete.view;
 import com.lanchonete.classes.Pedido;
 import com.lanchonete.dao.PedidoDao;
 import com.lanchonete.model.ModelPedidos;
-import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 /**
@@ -149,7 +150,9 @@ public class Frame extends javax.swing.JFrame {
 
     private void jBProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProdutosActionPerformed
         CrudProduto produtos = new CrudProduto(Frame.this);
+
         produtos.setVisible(true);
+
     }//GEN-LAST:event_jBProdutosActionPerformed
 
     private void jBProdutosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBProdutosKeyPressed
@@ -158,6 +161,12 @@ public class Frame extends javax.swing.JFrame {
 
     private void jBPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPedidosActionPerformed
         CrudPedido pedido = new CrudPedido(Frame.this);
+        pedido.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                carregaTabela(daoPedido.list());
+            }
+        });
         pedido.setVisible(true);
     }//GEN-LAST:event_jBPedidosActionPerformed
 

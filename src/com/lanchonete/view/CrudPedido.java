@@ -40,7 +40,7 @@ public class CrudPedido extends javax.swing.JDialog {
 
     PedidoDao daoPedido = new PedidoDao();
     ClienteDao daoCliente = new ClienteDao();
-        ProdutoDao daoProduto = new ProdutoDao();
+    ProdutoDao daoProduto = new ProdutoDao();
     Connect banco = new Connect();
     public ModelPesquisa modelPesquisa = new ModelPesquisa();
     public ModelPesquisa modelProduto = new ModelPesquisa();
@@ -474,6 +474,11 @@ public class CrudPedido extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
+        if (!banco.isNumeric(jTCdCliente.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Cliente Válido");
+            return;
+        }
+
         if (jTCdCliente.getText().isEmpty() || !daoCliente.clientExists(Integer.valueOf(jTCdCliente.getText().trim()))) {
             JOptionPane.showMessageDialog(this, "Insira um Cliente Valido");
             return;
@@ -575,6 +580,14 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jBIncluirKeyPressed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+//        if (!banco.isNumeric(jTCdCliente.getText())) {
+//            JOptionPane.showMessageDialog(this, "Insira um Cliente Válido");
+//            return;
+//        }
+        if (!banco.isNumeric(jTCdPedido.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Válido");
+            return;
+        }
         if (jTCdPedido.getText().isEmpty() || daoPedido.pedidoExists(Integer.valueOf(jTCdPedido.getText().trim()))) {
             JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
             return;
@@ -621,8 +634,13 @@ public class CrudPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jBConsultarKeyPressed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        if (!banco.isNumeric(jTCdPedido.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Válido");
+            return;
+        }
+
         if (jTCdPedido.getText().isEmpty() || !daoPedido.pedidoExists(Integer.valueOf(jTCdPedido.getText().trim()))) {
-            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
+            JOptionPane.showMessageDialog(this, "Insira um Pedido Válido");
             return;
         }
         if (confirma("Confirma exclusão do Registro?", this) == JOptionPane.YES_NO_OPTION) {
@@ -1017,7 +1035,7 @@ public class CrudPedido extends javax.swing.JDialog {
         jTCdPedido.setText("");
         jBGravar.setEnabled(false);
         jBCancelar.setEnabled(false);
-        
+
         jTDataPedido.setText("");
         jTCdCliente.setText("");
         jTDsCliente.setText("");
