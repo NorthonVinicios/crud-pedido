@@ -5,7 +5,6 @@
  */
 package com.lanchonete.view;
 
-import static br.com.neax.util.NXDialogos.confirma;
 import com.lanchonete.classes.Produto;
 import com.lanchonete.dao.ClienteDao;
 import com.lanchonete.dao.PedidoDao;
@@ -13,7 +12,6 @@ import com.lanchonete.dao.ProdutoDao;
 import com.lanchonete.db.Connect;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.JOptionPane;
 
 public class CrudProduto extends javax.swing.JDialog {
@@ -361,16 +359,20 @@ public class CrudProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBAlterarKeyPressed
 
     private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
-        if (jTCdProduto.getText().isEmpty() || !daoPedido.pedidoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
-            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
-            return;
-        }
-        jTCdProduto.setEnabled(false);
-        Produto ped = daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim()));
-        jTTamanho.setText(ped.getTamanhoProduto());
-        jTNome.setText(ped.getNomeProduto());
-        jComboBox1.setSelectedIndex(ped.getCor());
-        jTValor.setText(ped.getValor().toString());
+//        if (!banco.isNumeric(jTCdProduto.getText())) {
+//            JOptionPane.showMessageDialog(this, "Insira um Produto Válido");
+//            return;
+//        }
+//        if (jTCdProduto.getText().isEmpty() || !daoProduto.pedidoExists(Integer.valueOf(jTCdProduto.getText().trim()))) {
+//            JOptionPane.showMessageDialog(this, "Insira um Pedido Valido");
+//            return;
+//        }
+//        jTCdProduto.setEnabled(false);
+//        Produto ped = daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim()));
+//        jTTamanho.setText(ped.getTamanhoProduto());
+//        jTNome.setText(ped.getNomeProduto());
+//        jComboBox1.setSelectedIndex(ped.getCor());
+//        jTValor.setText(ped.getValor().toString());
     }//GEN-LAST:event_jBConsultarActionPerformed
 
     private void jBConsultarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBConsultarKeyPressed
@@ -382,7 +384,7 @@ public class CrudProduto extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Insira um Produto Valido");
             return;
         }
-        if (confirma("Confirma exclusão do Produto?", this) == JOptionPane.YES_NO_OPTION) {
+        if (banco.confirma("Confirma exclusão do Produto?", this) == JOptionPane.YES_NO_OPTION) {
             daoProduto.delete(daoProduto.findById(Integer.valueOf(jTCdProduto.getText().trim())));
             JOptionPane.showMessageDialog(this, "Produto Excluido");
         }

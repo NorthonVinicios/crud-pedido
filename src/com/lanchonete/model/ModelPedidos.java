@@ -22,6 +22,10 @@ public class ModelPedidos extends AbstractTableModel {
         return pedidos;
     }
 
+        private String[] colunas = new String[]{
+        "ID", "preço", "entrega prevista"};
+
+    
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
         fireTableDataChanged();
@@ -54,7 +58,7 @@ public class ModelPedidos extends AbstractTableModel {
 
     @Override
     public String getColumnName(int columnIndex) {
-        return"";
+        return colunas[columnIndex];
     }
 
     public void setData(List<Pedido> lista) {

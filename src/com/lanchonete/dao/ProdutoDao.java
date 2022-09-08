@@ -6,6 +6,9 @@
 package com.lanchonete.dao;
 
 import com.lanchonete.classes.Produto;
+import static com.lanchonete.main.Main.nome;
+import static com.lanchonete.main.Main.senha;
+import static com.lanchonete.main.Main.url;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +19,9 @@ public class ProdutoDao {
 
     public ProdutoDao() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/produto";
-            String user = "postgres";
-            String password = "admin";
+            String url = url();
+            String user = nome();
+            String password = senha();
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(url, user, password);
 

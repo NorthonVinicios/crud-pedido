@@ -6,6 +6,7 @@
 package com.lanchonete.dao;
 
 import com.lanchonete.classes.Cliente;
+import static com.lanchonete.main.Main.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,9 @@ public class ClienteDao {
 
     public ClienteDao() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/produto";
-            String user = "postgres";
-            String password = "admin";
+            String url = url();
+            String user = nome();
+            String password = senha();
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(url, user, password);
 

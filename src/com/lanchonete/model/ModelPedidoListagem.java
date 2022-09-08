@@ -51,11 +51,11 @@ public class ModelPedidoListagem extends AbstractTableModel {
             case 1:
                 return ped.getIdCliente().getNome();
             case 2:
-                return ped.getDataPedido().split("/")[0];
+                return ped.getDataPedido().split("-")[0];
             case 3:
-                return ped.getDataEntregaProgramada().split("/")[1];
+                return ped.getDataEntregaProgramada().split("-")[1];
             case 4:
-                return ped.getDataEntregaEfetivada().split("/")[1];
+                return ped.getDataEntregaEfetivada().split("-")[1];
             case 5:
                 return banco.retornaPagamento(ped.getFormaPagamento());
             case 6:

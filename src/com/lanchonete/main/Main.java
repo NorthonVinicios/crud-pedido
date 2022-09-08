@@ -14,4 +14,14 @@ public class Main {
         Frame frame = new Frame();
         frame.setVisible(true);
     }
+    
+    public static String senha(){
+        return "admin";
+    }
+    public static String nome(){
+        return "postgres";
+    }
+    public static String url(){
+        return "jdbc:postgresql://localhost:5432/produto";
+    }
 }

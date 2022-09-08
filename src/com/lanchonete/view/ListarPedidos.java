@@ -6,17 +6,22 @@
 package com.lanchonete.view;
 
 import com.lanchonete.classes.Pedido;
+import com.lanchonete.dao.ClienteDao;
 import com.lanchonete.dao.PedidoDao;
+import com.lanchonete.db.Connect;
 import com.lanchonete.model.ModelPedidoListagem;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  */
 public class ListarPedidos extends javax.swing.JDialog {
 
+    ClienteDao daoCliente = new ClienteDao();
     PedidoDao daoPedido = new PedidoDao();
     public ModelPedidoListagem modelProduto = new ModelPedidoListagem();
+    Connect banco = new Connect();
 
     public ListarPedidos(java.awt.Window parent) {
         super(parent);
@@ -43,6 +48,8 @@ public class ListarPedidos extends javax.swing.JDialog {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
+        jTCdPedido = new javax.swing.JTextField();
+        jBConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,20 +73,70 @@ public class ListarPedidos extends javax.swing.JDialog {
         });
         jScrollPane3.setViewportView(jTableProdutos);
 
+        jTCdPedido.setToolTipText("Código do Cliente");
+        jTCdPedido.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "ID CLIENTE"));
+        jTCdPedido.setDisabledTextColor(new java.awt.Color(0, 0, 255));
+        jTCdPedido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTCdPedidoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTCdPedidoFocusLost(evt);
+            }
+        });
+        jTCdPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTCdPedidoActionPerformed(evt);
+            }
+        });
+        jTCdPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTCdPedidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTCdPedidoKeyTyped(evt);
+            }
+        });
+
+        jBConsultar.setMnemonic('C');
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarActionPerformed(evt);
+            }
+        });
+        jBConsultar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBConsultarKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTCdPedido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTCdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -90,12 +147,51 @@ public class ListarPedidos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableProdutosKeyPressed
 
+    private void jTCdPedidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCdPedidoFocusGained
+
+    }//GEN-LAST:event_jTCdPedidoFocusGained
+
+    private void jTCdPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCdPedidoFocusLost
+
+    }//GEN-LAST:event_jTCdPedidoFocusLost
+
+    private void jTCdPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCdPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTCdPedidoActionPerformed
+
+    private void jTCdPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCdPedidoKeyPressed
+
+    }//GEN-LAST:event_jTCdPedidoKeyPressed
+
+    private void jTCdPedidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCdPedidoKeyTyped
+
+    }//GEN-LAST:event_jTCdPedidoKeyTyped
+
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        if (!banco.isNumeric(jTCdPedido.getText())) {
+            JOptionPane.showMessageDialog(this, "Insira um Cliente Válido");
+            return;
+        }
+        if (jTCdPedido.getText().isEmpty() || !daoCliente.clientExists(Integer.valueOf(jTCdPedido.getText().trim()))) {
+            JOptionPane.showMessageDialog(this, "Insira um Cliente Valido");
+            return;
+        }
+        carregaPedido(daoPedido.listByIdCliente(Integer.valueOf(jTCdPedido.getText().trim())));
+
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBConsultarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBConsultarKeyPressed
+
+    }//GEN-LAST:event_jBConsultarKeyPressed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBConsultar;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTCdPedido;
     private javax.swing.JTable jTableProdutos;
     // End of variables declaration//GEN-END:variables
 }

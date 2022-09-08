@@ -7,10 +7,15 @@ package com.lanchonete.db;
 
 import com.lanchonete.classes.Cliente;
 import com.lanchonete.classes.Pedido;
+import static com.lanchonete.main.Main.nome;
+import static com.lanchonete.main.Main.senha;
+import static com.lanchonete.main.Main.url;
+import java.awt.Component;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Connect {
 
@@ -20,9 +25,9 @@ public class Connect {
     public Connection connection;
 
     public Connect() {
-        url = "jdbc:postgresql://localhost:5432/produto";
-        user = "postgres";
-        password = "admin";
+        url = url();
+        user = nome();
+        password = senha();
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url, user, password);
@@ -66,13 +71,13 @@ public class Connect {
     public String getHoras() {
         String hora = (LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute());
         String data = (LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonth() + "/" + LocalDateTime.now().getYear());
-        return data + " | " + hora;
+        return data + " - " + hora;
     }
 
     public String getHoraMaisQuinze() {
         String hora = (LocalDateTime.now().plusMinutes(15).getHour() + ":" + (LocalDateTime.now().plusMinutes(15).getMinute()));
         String data = (LocalDateTime.now().plusMinutes(15).getDayOfMonth() + "/" + LocalDateTime.now().plusMinutes(15).getMonth() + "/" + LocalDateTime.now().getYear());
-        return data + " | " + hora;
+        return data + " - " + hora;
     }
 
     public static boolean isNumeric(String strNum) {
@@ -98,6 +103,18 @@ public class Connect {
             default:
                 return "NÃO PAGOU";
         }
+    }
+
+    public int confirma(String titulo) {
+        return javax.swing.JOptionPane.showConfirmDialog(
+                null, titulo,
+                "Confirma", JOptionPane.YES_NO_OPTION);
+    }
+
+    public int confirma(String titulo, Component frame) {
+        return javax.swing.JOptionPane.showConfirmDialog(
+                frame, titulo,
+                "Confirma", JOptionPane.YES_NO_OPTION);
     }
 
 }

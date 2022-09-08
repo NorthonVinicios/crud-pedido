@@ -5,8 +5,6 @@
  */
 package com.lanchonete.model;
 
-import br.com.neax.enumeration.EnumItf;
-import br.com.neax.jtable.enumeration.MessageTableEnum;
 import com.lanchonete.classes.Produto;
 import java.util.ArrayList;
 import java.util.List;

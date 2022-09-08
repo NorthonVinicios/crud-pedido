@@ -29,4 +29,9 @@ CREATE TABLE produto_pedido(
 	produto INT REFERENCES produto(id_produto) ON UPDATE CASCADE,
 	CONSTRAINT PRIMAY PRIMARY KEY (pedido, produto) 
 )
+INSERT INTO cliente(nome) values('silvani');
+INSERT INTO cliente(nome) values('northon');
+INSERT INTO cliente(nome) values('pedro');
+INSERT INTO cliente(nome) values('luis');
+INSERT INTO cliente(nome) values('ana');
 
