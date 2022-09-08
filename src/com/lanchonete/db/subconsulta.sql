@@ -1,10 +1,5 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  Neax
- * Created: Sep 8, 2022
- */
-
+SELECT nome_produto, CASE WHEN id_produto IN (SELECT produto FROM produto_pedido)
+                  THEN 'sim'
+                  ELSE 'não'
+             END AS vendido
+FROM produto;
