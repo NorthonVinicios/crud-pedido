@@ -46,10 +46,8 @@ is divided into following sections:
         </tstamp>
 	   
         <echo message="Built-By: ${user.name}" />
-        <echo message="Built-Date: ${TODAY}" />
-        <echo message="VERSAO DO FÁCIL: ${br.com.neax.facil.version}" />	  
+        <echo message="Built-Date: ${TODAY}" />	  
         <echo message="VERSAO DA COMPILAÇÃO : ${build.number}" />
-        <echo message="VERSAO DO JAR - ${application.title}: ${br.com.neax.facil.version}.${build.number}" />
 	
         <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>
 
@@ -62,19 +60,13 @@ is divided into following sections:
 
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
-                <attribute name="Created-By" value="NEAX Tecnologia"/>
+                <attribute name="Created-By" value="NORTHON"/>
                 <attribute name="Built-By" value="${user.name}"/>                
-                <attribute name="Built-Date" value="${TODAY}"/> 
-                <attribute name="Package" value="br.com.neax"/>
-                <attribute name="Specification-Title" value="FÁCIL ${br.com.neax.facil.version} Sistema Multi-Empresas"/>                                
+                <attribute name="Built-Date" value="${TODAY}"/>                                
                 <attribute name="Extension-Name" value="${application.title}"/>
                 <attribute name="Project-Name" value="${application.title}"/>                
-                <attribute name="Specification-Version" value="${br.com.neax.facil.version}.${build.number}"/>  
-                <attribute name="Implementation-Version" value="${br.com.neax.facil.version}.${build.number}"/>  
                 <attribute name="Implementation-Title" value="${application.title}"/>  
-                <attribute name="Implementation-Vendor-Id" value="br.com.neax"/>  
-                <attribute name="Implementation-Vendor" value="Todos os direitos reservados ®Neax Tecnologia - www.neaxtecnologia.com.br"/>                
-                <attribute name="Specification-Vendor" value="Todos os direitos reservados ®Neax Tecnologia - www.neaxtecnologia.com.br"/>                
+             
                 <attribute name="Class-Path" value="${jar.classpath}"/>                
             </manifest>
         </jar>
@@ -569,9 +561,7 @@ is divided into following sections:
 	   
         <echo message="Built-By: ${user.name}" />
         <echo message="Built-Date: ${TODAY}" />
-        <echo message="VERSAO DO FÁCIL: ${br.com.neax.facil.version}" />	  
-        <echo message="VERSAO DA COMPILAÇÃO : ${build.number}" />
-        <echo message="VERSAO DO JAR - ${application.title}: ${br.com.neax.facil.version}.${build.number}" />
+      
 		
         
         <macrodef name="copylibs" uri="http://www.netbeans.org/ns/j2se-project/3">
@@ -595,19 +585,10 @@ is divided into following sections:
                     
                     <fileset dir="${build.classes.dir}"/>
                     <manifest>
-                        <attribute name="Created-By" value="NEAX Tecnologia"/>
                         <attribute name="Built-By" value="${user.name}"/>                
-                        <attribute name="Built-Date" value="${TODAY}"/> 
-                        <attribute name="Package" value="br.com.neax"/>
-                        <attribute name="Specification-Title" value="FÁCIL ${br.com.neax.facil.version} Sistema Multi-Empresas"/>                                        
+                        <attribute name="Built-Date" value="${TODAY}"/>                           
                         <attribute name="Extension-Name" value="${application.title}"/>
-                        <attribute name="Project-Name" value="${application.title}"/>                
-                        <attribute name="Specification-Version" value="${br.com.neax.facil.version}.${build.number}"/>  
-                        <attribute name="Implementation-Version" value="${br.com.neax.facil.version}.${build.number}"/>  
-                        <attribute name="Implementation-Title" value="${application.title}"/>  
-                        <attribute name="Implementation-Vendor-Id" value="br.com.neax"/>  
-                        <attribute name="Implementation-Vendor" value="Todos os direitos reservados ®Neax Tecnologia - www.neaxtecnologia.com.br"/>                
-                        <attribute name="Specification-Vendor" value="Todos os direitos reservados ®Neax Tecnologia - www.neaxtecnologia.com.br"/>                
+                        <attribute name="Project-Name" value="${application.title}"/>                            
                         <attribute name="Class-Path" value="${jar.classpath}"/>   
                         <customize/>
                     </manifest>
