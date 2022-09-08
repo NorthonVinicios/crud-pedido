@@ -1,3 +1,5 @@
+CREATE DATABASE produto;
+
 CREATE TABLE cliente(
 	id_cliente SERIAL NOT NULL,
 	nome VARCHAR(255) NOT NULL,

@@ -78,7 +78,7 @@ public class ProdutoDao {
         List<Produto> list = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, nome);
+            stmt.setString(1, "%" + nome + "%");
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 Produto produto = new Produto();
@@ -88,7 +88,6 @@ public class ProdutoDao {
                 produto.setValor(result.getInt("valor"));
                 produto.setTamanhoProduto(result.getString("tamanho_produto"));
                 list.add(produto);
-                System.out.println(produto.getNomeProduto());
             }
         } catch (Exception e) {
             e.printStackTrace();
