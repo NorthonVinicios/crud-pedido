@@ -21,4 +21,4 @@ talvez seja necessario alterar os dados de conexão ao banco de dados, criei met
         }
 
 -crud-pedido\src\META-INF\persistence.xml
-![image](https://user-images.githubusercontent.com/51453681/189116485-a235bca6-e35b-4078-b8e2-5ff486582918.png)
+        ![image](https://user-images.githubusercontent.com/51453681/189116485-a235bca6-e35b-4078-b8e2-5ff486582918.png)
