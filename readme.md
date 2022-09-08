@@ -21,9 +21,4 @@ public static String url(){
 }
 
 -crud-pedido\src\META-INF\persistence.xml
-  //<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/produto"/>
- // <property name="javax.persistence.jdbc.user" value="postgres"/>
-  //<property name="javax.persistence.jdbc.password" value="admin"/>
-  
-
-
+![image](https://user-images.githubusercontent.com/51453681/189116485-a235bca6-e35b-4078-b8e2-5ff486582918.png)
