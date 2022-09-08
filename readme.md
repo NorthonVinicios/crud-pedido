@@ -1,6 +1,8 @@
 Olá, este projeto foi feito no netbeans 8.2 utilizando jdk 1.8, as dependencias e conectores utilizados estão na pasta crud-pedido/lib,
 será necessario adiciona-los ao projeto.
 
+O banco escolhido foi o postgreSQL.
+
 O script para geração do banco de dados está em: crud-pedido\src\com\lanchonete\db\db.sql - ele também gera 5 clientes com ids de 1 a 5, o projeto não contem
 um cadastro de clientes.
 
