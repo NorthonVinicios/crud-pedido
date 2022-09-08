@@ -11,9 +11,11 @@ talvez seja necessario alterar os dados de conexão ao banco de dados, criei met
 public static String senha(){
         return "admin";
     }
+    
 public static String nome(){
     return "postgres";
 }
+
 public static String url(){
     return "jdbc:postgresql://localhost:5432/produto";
 }
